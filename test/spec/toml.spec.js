@@ -25,6 +25,16 @@ describe('toml.js spec', function () {
         it ('should create new group', function () {
             expect(result.group).to.be.ok;
         });
+
+        describe('nested group', function () {
+            beforeEach(function () {
+                result = toml.parse('[group.sub]');
+            });
+
+            it('should create nested group', function () {
+                expect(result.group.sub).to.be.ok;
+            });
+        });
     });
 
 });
