@@ -1,7 +1,11 @@
 var toml = (function () {
 
-    return {
+    var parse = function (str) {
+        return {};
+    }
 
+    return {
+        parse: parse
     };
 
 })();
