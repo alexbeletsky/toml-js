@@ -50,4 +50,17 @@ describe('toml.js spec', function () {
             });
         });
     });
+
+    describe('when parsing expression', function () {
+
+        describe('for integer', function () {
+            beforeEach(function () {
+                result = toml.parse('foo=1');
+            });
+
+            it ('should create integer', function () {
+                expect(result.foo).to.equal(1);
+            });
+        });
+    });
 });

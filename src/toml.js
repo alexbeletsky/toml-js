@@ -33,9 +33,30 @@ var toml = (function () {
         }
     }
 
+    var parseExpression = function (result, line) {
+        var name = parseName(line);
+        var value = eval(line);
+
+        result[name] = value;
+
+        function parseName(line) {
+            return line.substring(0, line.indexOf('='));
+        }
+    }
+
     var parseLine = function (result, line) {
-        if (line.charAt(0) === '[') {
+        if (group(line)) {
             parseGroup(result, line);
+        } else if (expression(line)) {
+            parseExpression(result, line);
+        }
+
+        function group(line) {
+            return line.charAt(0) === '[';
+        }
+
+        function expression(line) {
+            return line.indexOf('=') > 0;
         }
     }
 
