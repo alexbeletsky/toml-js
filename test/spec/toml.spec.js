@@ -17,4 +17,14 @@ describe('toml.js spec', function () {
         });
     });
 
+    describe('when parsing a group', function () {
+        beforeEach(function () {
+            result = toml.parse('[group]');
+        });
+
+        it ('should create new group', function () {
+            expect(result.group).to.be.ok;
+        });
+    });
+
 });
