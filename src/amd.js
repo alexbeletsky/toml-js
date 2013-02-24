@@ -1,20 +1,17 @@
 (function (root, factory) {
   if (typeof exports === 'object') {
 
-    var underscore = require('underscore');
-    var backbone = require('backbone');
-
-    module.exports = factory(underscore, backbone);
+    module.exports = factory();
 
   } else if (typeof define === 'function' && define.amd) {
 
-    define(['underscore', 'backbone'], factory);
+    define(factory);
 
   } 
-}(this, function (_, Backbone) {
+}(this, function () {
 
-  //= backbone.clickdebounce.js
-  return Backbone.ClickDebounce; 
+  //= toml.js
+  return toml;
 
 }));
 
