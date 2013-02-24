@@ -62,5 +62,46 @@ describe('toml.js spec', function () {
                 expect(result.foo).to.equal(1);
             });
         });
+
+        describe('for float', function () {
+            beforeEach(function () {
+                result = toml.parse('foo=1.23');
+            });
+
+            it ('should create float', function () {
+                expect(result.foo).to.equal(1.23);
+            });
+        });
+
+        describe('for boolean', function () {
+            beforeEach(function () {
+                result = toml.parse('foo=true');
+            });
+
+            it ('should create boolean', function () {
+                expect(result.foo).to.equal(true);
+            });
+        });
+
+        describe('for strings', function () {
+            beforeEach(function () {
+                result = toml.parse('foo="true"');
+            });
+
+            it ('should create boolean', function () {
+                expect(result.foo).to.equal("true");
+            });
+        });
+
+        describe('for dates', function () {
+            beforeEach(function () {
+                result = toml.parse('foo=2013-02-24T01:13:00Z');
+            });
+
+            it ('should create dates', function () {
+                expect(result.foo).to.eql(new Date('2013-02-24T01:13:00Z'));
+            });
+        });
+
     });
 });

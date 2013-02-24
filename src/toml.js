@@ -34,13 +34,29 @@ var toml = (function () {
     }
 
     var parseExpression = function (result, line) {
-        var name = parseName(line);
-        var value = eval(line);
+        var pair = parseNameValue(line);
+        var value = parseValue(pair.value);
 
-        result[name] = value;
+        result[pair.name] = value;
 
-        function parseName(line) {
-            return line.substring(0, line.indexOf('='));
+        function parseNameValue(line) {
+            var equal = line.indexOf('=');
+            return {
+                name: line.substring(0, equal),
+                value: line.substring(equal + 1)
+            };
+        }
+
+        function parseValue(value) {
+            if (date(value)) {
+                return new Date(value);
+            }
+
+            return eval(value);
+
+            function date(value) {
+                return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/.test(value);
+            }
         }
     }
 
