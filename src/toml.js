@@ -33,12 +33,19 @@ var toml = (function () {
         }
     }
 
+    var parseLine = function (result, line) {
+        if (line.charAt(0) === '[') {
+            parseGroup(result, line);
+        }
+    }
+
     var parse = function (str) {
         var result = {};
+        var lines = str.split('\n');
 
-        if (str.charAt(0) === '[') {
-            parseGroup(result, str);
-        }
+        lines.forEach(function (line) {
+            parseLine(result, line);
+        });
 
         return result;
     }

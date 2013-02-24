@@ -35,6 +35,19 @@ describe('toml.js spec', function () {
                 expect(result.group.sub).to.be.ok;
             });
         });
-    });
 
+        describe('multiple groups', function () {
+            beforeEach(function () {
+                result = toml.parse('[first]\n[second]');
+            });
+
+            it ('should create first group', function () {
+                expect(result.first).to.be.ok;
+            });
+
+            it ('should create second group', function () {
+                expect(result.second).to.be.ok;
+            });
+        });
+    });
 });
