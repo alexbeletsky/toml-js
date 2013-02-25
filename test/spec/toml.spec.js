@@ -245,6 +245,24 @@ describe('toml.js spec', function () {
                 });
             });
 
+            describe('one group with subgroups', function () {
+                beforeEach(function () {
+                    result = toml.parse('[group]\nfoo=1\nboo=2\n\n[group.sub]\nmoo=1\n');
+                });
+
+                it ('should parse group', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                it ('should parse sub group', function () {
+                    expect(result.group.sub).to.be.ok;
+                });
+
+                it ('should parse expression in sub group', function () {
+                    expect(result.group.sub.moo).to.eql(1);
+                });
+            });
+
 
         });
 
