@@ -215,6 +215,36 @@ describe('toml.js spec', function () {
                 });
             });
 
+            describe('one group with global expression', function () {
+                beforeEach(function () {
+                    result = toml.parse('global=1\n[group]\nfoo=1\nboo=2');
+                });
+
+                it ('should parse group', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                it ('should parse expression in group', function () {
+                    expect(result.global).to.eql(1);
+                    expect(result.group.global).to.be.not.ok;
+                });
+            });
+
+            describe('one group with global expression after', function () {
+                beforeEach(function () {
+                    result = toml.parse('[group]\nfoo=1\nboo=2\n\nglobal=1');
+                });
+
+                it ('should parse group', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                it ('should parse expression in group', function () {
+                    expect(result.global).to.eql(1);
+                    expect(result.group.global).to.be.not.ok;
+                });
+            });
+
 
         });
 

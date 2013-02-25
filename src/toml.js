@@ -119,6 +119,8 @@ var toml = (function () {
             parseGroup(context, result, line);
         } else if (expression(line)) {
             parseExpression(context, result, line);
+        } else if (empty(line)) {
+            resetContext();
         }
 
         function group(line) {
@@ -127,6 +129,14 @@ var toml = (function () {
 
         function expression(line) {
             return line.indexOf('=') > 0;
+        }
+
+        function empty(line) {
+            return line === '';
+        }
+
+        function resetContext() {
+            delete context.currentGroup;
         }
     }
 
