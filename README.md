@@ -41,7 +41,7 @@ Run parser,
 
 ```js
     var fs = require('fs');
-    var toml = require('toml');
+    var toml = require('toml-js');
 
     fs.readFile('example.toml', function (err, data) {
         var parsed = toml.parse(data);
