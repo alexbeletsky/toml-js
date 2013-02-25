@@ -144,6 +144,26 @@ describe('toml.js spec', function () {
                 });
             });
 
+            describe('nested arrays', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=[1,2,[1,2,3]]');
+                });
+
+                it('should create nested arrays', function () {
+                    expect(result.foo).to.eql([1,2,[1,2,3]]);
+                });
+
+                describe('with different types', function () {
+                    beforeEach(function () {
+                        result = toml.parse('foo=[[1,2],["a","b","c"]]');
+                    });
+
+                    it('should create nested arrays', function () {
+                        expect(result.foo).to.eql([[1,2],["a","b","c"]]);
+                    });
+                });
+            });
+
         });
 
     });
