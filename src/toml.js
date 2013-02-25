@@ -142,10 +142,10 @@ var toml = (function () {
 
     var parse = function (str) {
         var result = {}, context = {};
-        var lines = str.split('\n');
+        var lines = str.toString().split('\n');
 
         lines.forEach(function (line) {
-            line = replaceWhitespaces(line);
+            line = stripComments(replaceWhitespaces(line));
             parseLine(context, result, line);
         });
 
@@ -153,6 +153,10 @@ var toml = (function () {
 
         function replaceWhitespaces(line) {
             return line.replace(/\s/g, '');
+        }
+
+        function stripComments(line) {
+            return line.split('#')[0];
         }
     }
 

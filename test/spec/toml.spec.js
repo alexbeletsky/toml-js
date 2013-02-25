@@ -285,6 +285,17 @@ describe('toml.js spec', function () {
                         expect(result.group).to.be.ok;
                     });
                 });
+
+                describe('in the same line with array', function () {
+                    beforeEach(function () {
+                        result = toml.parse('[clients]\ndata = [ ["gamma", "delta"], [1, 2] ] # just an update to make sure parsers support it');
+                    });
+
+                    it ('should be parsed', function () {
+                        expect(result.clients.data).to.be.ok;
+                    });
+                });
+
             });
 
             describe('with spaces', function () {
