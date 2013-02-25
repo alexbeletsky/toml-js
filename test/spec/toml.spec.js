@@ -59,7 +59,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create integer', function () {
-                expect(result.foo).to.equal(1);
+                expect(result.foo).to.eql(1);
             });
         });
 
@@ -69,7 +69,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create float', function () {
-                expect(result.foo).to.equal(1.23);
+                expect(result.foo).to.eql(1.23);
             });
         });
 
@@ -79,7 +79,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create boolean', function () {
-                expect(result.foo).to.equal(true);
+                expect(result.foo).to.eql(true);
             });
         });
 
@@ -89,7 +89,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create boolean', function () {
-                expect(result.foo).to.equal("true");
+                expect(result.foo).to.eql("true");
             });
         });
 
@@ -100,6 +100,18 @@ describe('toml.js spec', function () {
 
             it ('should create dates', function () {
                 expect(result.foo).to.eql(new Date('2013-02-24T01:13:00Z'));
+            });
+        });
+
+        describe('for arrays', function () {
+            describe('of ints', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=[1,2,3]');
+                });
+
+                it('should create array of ints', function () {
+                    expect(result.foo).to.eql([1,2,3]);
+                });
             });
         });
 
