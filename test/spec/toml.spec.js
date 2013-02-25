@@ -113,6 +113,27 @@ describe('toml.js spec', function () {
                     expect(result.foo).to.eql([1,2,3]);
                 });
             });
+
+            describe('of floats', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=[1.1,2.2,3.3]');
+                });
+
+                it('should create array of floats', function () {
+                    expect(result.foo).to.eql([1.1,2.2,3.3]);
+                });
+            });
+
+            describe('of strings', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=["one","two","three"]');
+                });
+
+                it('should create array of string', function () {
+                    expect(result.foo).to.eql(["one","two","three"]);
+                });
+            });
+
         });
 
     });
