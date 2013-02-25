@@ -185,7 +185,23 @@ describe('toml.js spec', function () {
             });
         });
 
-        describe('when real input', function () {
+        describe('when groups with expression', function () {
+            describe('one group one expression', function () {
+                beforeEach(function () {
+                    result = toml.parse('[group]\nfoo=1');
+                });
+
+                it ('should parse group', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                it ('should parse expression in group', function () {
+                    expect(result.group.foo).to.eql(1);
+                });
+            });
+        });
+
+        describe('when spaces and comments', function () {
             describe('with comments', function () {
                 beforeEach(function() {
                     result = toml.parse('# TOML begin\n[group]\n#TOML end');
@@ -270,9 +286,18 @@ describe('toml.js spec', function () {
                         it ('should skip spaces', function () {
                             expect(result.foo).to.be.ok;
                         });
+
+                        describe('for arrays', function () {
+                            beforeEach(function () {
+                                result = toml.parse('   foo  =  [1, 2,   4]   ');
+                            });
+
+                            it ('should skip spaces', function () {
+                                expect(result.foo).to.be.ok;
+                            });
+                        });
                     });
                 });
-
             });
         });
     });

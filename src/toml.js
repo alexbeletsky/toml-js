@@ -1,6 +1,6 @@
 var toml = (function () {
 
-    var parseGroup = function (result, str) {
+    var parseGroup = function (context, result, str) {
         var group = parseGroupName(str);
         if (group.indexOf('.') !== -1) {
             var groups = parseSubGroups(group);
@@ -19,7 +19,8 @@ var toml = (function () {
         }
 
         function addGroup(result, group) {
-            result[group] = {};
+            var current = result[group] = {};
+            context.currentGroup = current;
         }
 
         function addGroups(result, groups) {
@@ -33,11 +34,12 @@ var toml = (function () {
         }
     }
 
-    var parseExpression = function (result, line) {
+    var parseExpression = function (context, result, line) {
         var pair = parseNameValue(line);
         var value = parseValue(pair.value);
+        var currentGroup = context.currentGroup || result;
 
-        result[pair.name] = value;
+        currentGroup[pair.name] = value;
 
         function parseNameValue(line) {
             var equal = line.indexOf('=');
@@ -112,11 +114,11 @@ var toml = (function () {
         }
     }
 
-    var parseLine = function (result, line) {
+    var parseLine = function (context, result, line) {
         if (group(line)) {
-            parseGroup(result, line);
+            parseGroup(context, result, line);
         } else if (expression(line)) {
-            parseExpression(result, line);
+            parseExpression(context, result, line);
         }
 
         function group(line) {
@@ -129,12 +131,12 @@ var toml = (function () {
     }
 
     var parse = function (str) {
-        var result = {};
+        var result = {}, context = {};
         var lines = str.split('\n');
 
         lines.forEach(function (line) {
             line = replaceWhitespaces(line);
-            parseLine(result, line);
+            parseLine(context, result, line);
         });
 
         return result;
