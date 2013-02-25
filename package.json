@@ -12,6 +12,8 @@
     "client",
     "browser"
   ],
+  "lib": "./lib",
+  "main": "./lib/amd/toml.js",
   "author": {
     "name": "Alexander Beletsky",
     "email": "alexander.beletsky@gmail.com",
