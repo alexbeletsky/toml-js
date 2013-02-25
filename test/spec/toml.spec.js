@@ -199,6 +199,23 @@ describe('toml.js spec', function () {
                     expect(result.group.foo).to.eql(1);
                 });
             });
+
+            describe('one group two expressions', function () {
+                beforeEach(function () {
+                    result = toml.parse('[group]\nfoo=1\nboo=2');
+                });
+
+                it ('should parse group', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                it ('should parse expression in group', function () {
+                    expect(result.group.foo).to.eql(1);
+                    expect(result.group.boo).to.eql(2);
+                });
+            });
+
+
         });
 
         describe('when spaces and comments', function () {
