@@ -1,4 +1,4 @@
-# Toml-js
+# Toml-js [![Build Status](https://secure.travis-ci.org/alexanderbeletsky/toml-js.png?branch=master)](http://travis-ci.org/alexanderbeletsky/toml-js)
 
 Very slim, very fast, no dependencies, [TOML](https://github.com/mojombo/toml) parser implementation. Works both browser (plain and AMD) and node.js.
 
@@ -56,6 +56,10 @@ You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), appl
 ## Supported version
 
 Support provided for [a7e7e9e335c34131af3c86569b7d674b8d9412e1](https://github.com/mojombo/toml/commit/a7e7e9e335c34131af3c86569b7d674b8d9412e1#tests/example.toml) version of TOML.
+
+## Credits 
+
+* @rossipedia - [toml-net](https://github.com/rossipedia/toml-net) for well-rounded test suite.
 
 ## TODO
 
