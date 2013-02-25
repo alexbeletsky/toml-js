@@ -1,6 +1,6 @@
 # Toml-js
 
-Very slim, very fast, no dependencies [TOML](https://github.com/mojombo/toml) parser implementation. Works both browser (plain and AMD) and node.js.
+Very slim, very fast, no dependencies, [TOML](https://github.com/mojombo/toml) parser implementation. Works both browser (plain and AMD) and node.js.
 
 ## Why?
 
@@ -48,6 +48,10 @@ Run parser,
         console.log(parsed);
     });
 ```
+
+## Contributing
+
+You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), apply fix, build and submit the pull request.
 
 ## Supported version
 
