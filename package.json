@@ -1,22 +1,16 @@
 {
-  "name": "toml.js",
+  "name": "toml-js",
   "description": "TOML parser implementation",
   "version": "0.0.1",
-  "homepage": "https://github.com/alexander.beletsky/backbone.clickdebounce",
+  "homepage": "https://github.com/alexander.beletsky/toml-js",
   "keywords": [
-    "backbone",
-    "plugin",
-    "debounce",
-    "clicks",
-    "views",
+    "TOML",
+    "parser",
+    "fast",
+    "no depenencies",
+    "node",
     "client",
     "browser"
-  ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/derickbailey/backbone.compute/blob/master/LICENSE.md"
-    }
   ],
   "author": {
     "name": "Alexander Beletsky",
@@ -24,13 +18,13 @@
     "web": "http://beletsky.net"
   },
   "bugs": {
-    "web": "https://github.com/alexander.beletsky/backbone.clickdebounce/issues"
+    "web": "https://github.com/alexander.beletsky/toml-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexander.beletsky/backbone.clickdebounce.git"
+    "url": "https://github.com/alexander.beletsky/toml-js.git"
   },
-  "github": "https://github.com/alexander.beletsky/backbone.clickdebounce",
+  "github": "https://github.com/alexander.beletsky/toml-js",
   "devDependencies": {
     "grunt": "0.3.x",
     "grunt-rigger": "*",
