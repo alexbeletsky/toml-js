@@ -133,10 +133,15 @@ var toml = (function () {
         var lines = str.split('\n');
 
         lines.forEach(function (line) {
+            line = replaceWhitespaces(line);
             parseLine(result, line);
         });
 
         return result;
+
+        function replaceWhitespaces(line) {
+            return line.replace(/\s/g, '');
+        }
     }
 
     return {

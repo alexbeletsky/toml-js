@@ -183,8 +183,97 @@ describe('toml.js spec', function () {
                     });
                 });
             });
-
         });
 
+        describe('when real input', function () {
+            describe('with comments', function () {
+                beforeEach(function() {
+                    result = toml.parse('# TOML begin\n[group]\n#TOML end');
+                });
+
+                it ('should be parsed', function () {
+                    expect(result.group).to.be.ok;
+                });
+
+                describe('in the same line', function () {
+                    beforeEach(function () {
+                        result = toml.parse('[group] # comment');
+                    });
+
+                    it ('should be parsed', function () {
+                        expect(result.group).to.be.ok;
+                    });
+                });
+            });
+
+            describe('with spaces', function () {
+                describe('spaces before', function () {
+                    describe('for group', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   [group]');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.group).to.be.ok;
+                        });
+                    });
+
+                    describe('for expression', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   foo=1');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.foo).to.be.ok;
+                        });
+                    });
+                });
+
+                describe('spaces after', function () {
+                    describe('for group', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   [group]   ');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.group).to.be.ok;
+                        });
+                    });
+
+                    describe('for expression', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   foo=1   ');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.foo).to.be.ok;
+                        });
+                    });
+                });
+
+                describe('spaces in the middle', function () {
+                    describe('for group', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   [   group  ]   ');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.group).to.be.ok;
+                        });
+                    });
+
+                    describe('for expression', function () {
+                        beforeEach(function () {
+                            result = toml.parse('   foo  =  1   ');
+                        });
+
+                        it ('should skip spaces', function () {
+                            expect(result.foo).to.be.ok;
+                        });
+                    });
+                });
+
+            });
+        });
     });
 });
