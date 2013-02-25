@@ -134,6 +134,16 @@ describe('toml.js spec', function () {
                 });
             });
 
+            describe('of dates', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=[2013-02-24T01:13:00Z,2013-02-25T01:13:00Z]');
+                });
+
+                it('should create array of string', function () {
+                    expect(result.foo).to.eql([new Date('2013-02-24T01:13:00Z'), new Date('2013-02-25T01:13:00Z')]);
+                });
+            });
+
             describe('of multiple types', function () {
                 beforeEach(function () {
                     result = toml.parse('foo=["one",1,2.2]');
@@ -151,6 +161,16 @@ describe('toml.js spec', function () {
 
                 it('should create nested arrays', function () {
                     expect(result.foo).to.eql([1,2,[1,2,3]]);
+                });
+
+                describe('nested nested', function () {
+                    beforeEach(function () {
+                        result = toml.parse('foo=[1,2,[3,4],5,[6,7,[8,9]]]');
+                    });
+
+                    it('should create nested arrays', function () {
+                        expect(result.foo).to.eql([1,2,[3,4],5,[6,7,[8,9]]]);
+                    });
                 });
 
                 describe('with different types', function () {

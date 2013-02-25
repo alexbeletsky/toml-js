@@ -48,6 +48,58 @@ var toml = (function () {
         }
 
         function parseValue(value) {
+            if (array(value)) {
+                return parseArray(value);
+            }
+
+            return parsePrimitive(value);
+
+            function array(value) {
+                return value.charAt(0) === '[' && value.charAt(value.length - 1) === ']';
+            }
+        }
+
+        function parseArray(value) {
+            var values = parseArrayValues(value);
+            return values.map(function(v) {
+                return parseValue(v);
+            });
+
+            function parseArrayValues(value) {
+                var parsed = [];
+                var array = value.substring(1, value.length - 1);
+                var commasMap = commasMap(array);
+                commasMap.reduce(function(prev, next) {
+                    parsed.push(array.substring(prev + 1, next));
+                    return next;
+                }, -1);
+
+                return parsed;
+
+                function commasMap(value) {
+                    var commasMap = [];
+                    var inArray = false, depth = 0;
+                    for(var index = 0; index < value.length; index++) {
+                        var element = value[index];
+                        if (element === '[') {
+                            depth++;
+                        } else if (element === ']') {
+                            depth--;
+                        }
+
+                        if (element === ',' && depth === 0) {
+                            commasMap.push(index);
+                        }
+                    }
+
+                    commasMap.push(value.length);
+
+                    return commasMap;
+                }
+            }
+        }
+
+        function parsePrimitive(value) {
             if (date(value)) {
                 return new Date(value);
             }
