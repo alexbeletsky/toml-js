@@ -7,7 +7,7 @@
     "TOML",
     "parser",
     "fast",
-    "no depenencies",
+    "no dependencies",
     "node",
     "client",
     "browser"
