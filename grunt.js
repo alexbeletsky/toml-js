@@ -7,7 +7,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     meta: {
-      version: '0.0.1',
+      version: '0.0.2',
       source: 'toml.js',
       sourceMin: 'tom;.min.js',
       banner: '// TOML parser implementation, v<%= meta.version %>\n' +
