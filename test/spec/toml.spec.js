@@ -134,6 +134,16 @@ describe('toml.js spec', function () {
                 });
             });
 
+            describe('of multiple types', function () {
+                beforeEach(function () {
+                    result = toml.parse('foo=["one",1,2.2]');
+                });
+
+                it('should create array of multiple types', function () {
+                    expect(result.foo).to.eql(["one",1,2.2]);
+                });
+            });
+
         });
 
     });
