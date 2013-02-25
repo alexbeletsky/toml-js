@@ -1,7 +1,7 @@
 {
   "name": "toml-js",
   "description": "TOML parser implementation",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/alexanderbeletsky/toml-js",
   "keywords": [
     "TOML",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexanderbeletsky/toml-js.git"
+    "url": "https://github.com/alexanderbeletsky/toml-js"
   },
   "github": "https://github.com/alexanderbeletsky/toml-js",
   "devDependencies": {
