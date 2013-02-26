@@ -20,6 +20,10 @@ var toml = (function () {
         }
 
         function addGroup(result, group) {
+            if (result[group]) {
+                throw new Error('"' + group + '" is overriding existing value');
+            }
+
             var current = result[group] = {};
             context.currentGroup = current;
         }

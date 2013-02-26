@@ -436,5 +436,13 @@ describe('toml.js spec', function () {
                 expect(result.hosts).to.eql(["alpha","beta","omega"]);
             });
         });
+
+        describe('when overriding group name', function () {
+            it ('should throw an error', function () {
+                expect(function () {
+                    toml.parse('[group]\nkey=1\n\n[group.key]\nval=2\n');
+                }).to.throws(Error);
+            });
+        });
     });
 });
