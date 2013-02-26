@@ -57,15 +57,11 @@ You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), appl
 
 ## Supported version
 
-Support provided for [@mojombo/toml/a7e7e9e](https://github.com//commit/a7e7e9e335c34131af3c86569b7d674b8d9412e1#tests/example.toml) version of TOML.
+Support provided for [@mojombo/toml/3d8b730dcc](https://github.com/mojombo/toml/commit/3d8b730dccf28d62f9a8340f900759e9563e52e3) version of TOML (latest up to 25 Feb 2013).
 
-## Credits 
+## Credits
 
 * @rossipedia - [toml-net](https://github.com/rossipedia/toml-net) for well-rounded test suite.
-
-## TODO
-
-* Support multiline arrays
 
 # Licence (MIT License)
 
