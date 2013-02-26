@@ -32,7 +32,7 @@ var toml = (function () {
                 return current;
             });
         }
-    }
+    };
 
     var parseExpression = function (context, result, line) {
         var pair = parseNameValue(line);
@@ -70,8 +70,8 @@ var toml = (function () {
             function parseArrayValues(value) {
                 var parsed = [];
                 var array = value.substring(1, value.length - 1);
-                var commasMap = commasMap(array);
-                commasMap.reduce(function(prev, next) {
+                var map = commasMap(array);
+                map.reduce(function(prev, next) {
                     parsed.push(array.substring(prev + 1, next));
                     return next;
                 }, -1);
@@ -79,7 +79,7 @@ var toml = (function () {
                 return parsed;
 
                 function commasMap(value) {
-                    var commasMap = [];
+                    var map = [];
                     var inArray = false, depth = 0;
                     for(var index = 0; index < value.length; index++) {
                         var element = value[index];
@@ -90,13 +90,13 @@ var toml = (function () {
                         }
 
                         if (element === ',' && depth === 0) {
-                            commasMap.push(index);
+                            map.push(index);
                         }
                     }
 
-                    commasMap.push(value.length);
+                    map.push(value.length);
 
-                    return commasMap;
+                    return map;
                 }
             }
         }
@@ -109,10 +109,10 @@ var toml = (function () {
             return eval(value);
 
             function date(value) {
-                return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/.test(value);
+                return (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/).test(value);
             }
         }
-    }
+    };
 
     var parseLine = function (context, result, line) {
         if (group(line)) {
@@ -138,7 +138,7 @@ var toml = (function () {
         function resetContext() {
             delete context.currentGroup;
         }
-    }
+    };
 
     var parse = function (str) {
         var result = {}, context = {};
@@ -158,7 +158,7 @@ var toml = (function () {
         function stripComments(line) {
             return line.split('#')[0];
         }
-    }
+    };
 
     return {
         parse: parse
