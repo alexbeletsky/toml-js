@@ -1,6 +1,7 @@
 var toml = (function () {
 
-    var parseGroup = function (context, result, str) {
+    var parseGroup = function (context, str) {
+        var result = context.result;
         var group = parseGroupName(str);
         if (group.indexOf('.') !== -1) {
             var groups = parseSubGroups(group);
@@ -34,10 +35,10 @@ var toml = (function () {
         }
     };
 
-    var parseExpression = function (context, result, line) {
+    var parseExpression = function (context, line) {
         var pair = parseNameValue(line);
         var value = parseValue(pair.value);
-        var currentGroup = context.currentGroup || result;
+        var currentGroup = context.currentGroup || context.result;
 
         currentGroup[pair.name] = value;
 
@@ -114,11 +115,11 @@ var toml = (function () {
         }
     };
 
-    var parseLine = function (context, result, line) {
+    var parseLine = function (context, line) {
         if (group(line)) {
-            parseGroup(context, result, line);
+            parseGroup(context, line);
         } else if (expression(line)) {
-            parseExpression(context, result, line);
+            parseExpression(context, line);
         } else if (empty(line)) {
             resetContext();
         }
@@ -140,13 +141,11 @@ var toml = (function () {
         }
     };
 
-    var parse = function (lines) {
+    var parse = function (context, lines) {
         mergeMultilines(lines).forEach(function (line) {
             line = stripComments(replaceWhitespaces(line));
-            parseLine(context, result, line);
+            parseLine(context, line);
         });
-
-        return result;
 
         function replaceWhitespaces(line) {
             return line.replace(/\s/g, '');
@@ -193,10 +192,12 @@ var toml = (function () {
     };
 
     var startParser = function (str) {
-        var result = {}, context = {};
+        var context = {}; context.result = {};
         var lines = str.toString().split('\n');
 
-        return parse(lines);
+        parse(context, lines);
+
+        return context.result;
     };
 
     return {
