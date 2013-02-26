@@ -17,7 +17,9 @@ Add reference,
 or AMD, 
 
 ```html
-    <script type="text/javascript" src="toml.amd.js"></script>
+    define(['libs/toml'], function (toml) {
+
+    });
 ```
 
 Run parser,
@@ -55,7 +57,7 @@ You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), appl
 
 ## Supported version
 
-Support provided for [a7e7e9e335c34131af3c86569b7d674b8d9412e1](https://github.com/mojombo/toml/commit/a7e7e9e335c34131af3c86569b7d674b8d9412e1#tests/example.toml) version of TOML.
+Support provided for [@mojombo/toml/a7e7e9e](https://github.com//commit/a7e7e9e335c34131af3c86569b7d674b8d9412e1#tests/example.toml) version of TOML.
 
 ## Credits 
 
