@@ -1,3 +1,53 @@
+describe('merge multiline', function () {
+    var mergeMultilines = function (lines) {
+        var merged = [], acc = [], capture = false, merge = false;
+        lines.forEach(function (line) {
+            if (multilineArrayStart(line)) {
+                capture = true;
+            }
+
+            if (multilineArrayEnd(line)) {
+                merge = true;
+            }
+
+            if (capture) {
+                acc.push(line);
+            } else {
+                merged.push(line);
+            }
+
+            if (merge) {
+                capture = false; merge = false;
+                merged.push(acc.join(''));
+                acc = [];
+            }
+        });
+
+        return merged;
+
+        function multilineArrayStart(line) {
+            return line.indexOf('[') > 0 && line.indexOf(']') < 0;
+        }
+
+        function multilineArrayEnd(line) {
+            return line.indexOf(']') > 0;
+        }
+    };
+
+    var result;
+
+    describe('for arrays', function () {
+        beforeEach(function () {
+            result = mergeMultilines(['hosts=["a",','"b",','"c"]']);
+        });
+
+        it ('should merge', function () {
+            expect(result[0]).to.eql('hosts=["a","b","c"]');
+        });
+    });
+
+});
+
 describe('toml.js spec', function () {
     var result;
 
@@ -374,6 +424,16 @@ describe('toml.js spec', function () {
                         });
                     });
                 });
+            });
+        });
+
+        describe('when multiline array definition', function () {
+            beforeEach(function () {
+                result = toml.parse('hosts=["alpha",\n"beta",\n"omega"\n]');
+            });
+
+            it ('should parse', function () {
+                expect(result.hosts).to.eql(["alpha","beta","omega"]);
             });
         });
     });

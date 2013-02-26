@@ -140,11 +140,8 @@ var toml = (function () {
         }
     };
 
-    var parse = function (str) {
-        var result = {}, context = {};
-        var lines = str.toString().split('\n');
-
-        lines.forEach(function (line) {
+    var parse = function (lines) {
+        mergeMultilines(lines).forEach(function (line) {
             line = stripComments(replaceWhitespaces(line));
             parseLine(context, result, line);
         });
@@ -158,10 +155,52 @@ var toml = (function () {
         function stripComments(line) {
             return line.split('#')[0];
         }
+
+        function mergeMultilines(lines) {
+            var merged = [], acc = [], capture = false, merge = false;
+            lines.forEach(function (line) {
+                if (multilineArrayStart(line)) {
+                    capture = true;
+                }
+
+                if (capture && multilineArrayEnd(line)) {
+                    merge = true;
+                }
+
+                if (capture) {
+                    acc.push(line);
+                } else {
+                    merged.push(line);
+                }
+
+                if (merge) {
+                    capture = false; merge = false;
+                    merged.push(acc.join(''));
+                    acc = [];
+                }
+            });
+
+            return merged;
+
+            function multilineArrayStart(line) {
+                return line.indexOf('[') !== -1 && line.indexOf(']') === -1;
+            }
+
+            function multilineArrayEnd(line) {
+                return line.indexOf(']') !== -1;
+            }
+        }
+    };
+
+    var startParser = function (str) {
+        var result = {}, context = {};
+        var lines = str.toString().split('\n');
+
+        return parse(lines);
     };
 
     return {
-        parse: parse
+        parse: startParser
     };
 
 })();
