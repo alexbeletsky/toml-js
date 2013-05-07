@@ -1,0 +1,9 @@
+{
+  "name": "toml-js",
+  "version": "0.0.5",
+  "main": "lib/toml.js",
+  "ignore": [
+    "test",
+    "node_modules"
+  ]
+}
