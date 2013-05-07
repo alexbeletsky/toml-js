@@ -4,6 +4,7 @@
   "main": "lib/toml.js",
   "ignore": [
     "test",
+    "public",
     "node_modules"
   ]
 }
