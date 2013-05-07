@@ -8,13 +8,19 @@ Very slim, very fast, no dependencies, [TOML](https://github.com/mojombo/toml) p
 
 ## Running on browser
 
+Install bower component,
+
+```
+    bower install toml-js
+```
+
 Add reference,
 
 ```html
-    <script type="text/javascript" src="toml.js"></script>
+    <script type="text/javascript" src="components/toml-js/toml.js"></script>
 ```
 
-or AMD, 
+or AMD,
 
 ```html
     define(['libs/toml'], function (toml) {
