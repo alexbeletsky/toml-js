@@ -63,7 +63,7 @@ You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), appl
 
 ## Supported version
 
-Support provided for [@mojombo/toml/3d8b730dcc](https://github.com/mojombo/toml/commit/3d8b730dccf28d62f9a8340f900759e9563e52e3) version of TOML (latest up to 25 Feb 2013).
+Support provided for [v0.1.0](https://github.com/mojombo/toml/blob/master/versions/toml-v0.1.0.md) version of TOML (latest up to 25 Feb 2013).
 
 ## Credits
 
