@@ -445,4 +445,51 @@ describe('toml.js spec', function () {
             });
         });
     });
+
+    describe('dump', function () {
+
+        it('should expose a function', function () {
+            expect(toml.dump).to.be.a('function');
+        });
+
+        describe('when data is number', function () {
+
+            it ('should work with integer', function () {
+                expect(toml.dump(42)).to.eql('42');
+            });
+
+            it ('should work with float', function () {
+                expect(toml.dump(42.12)).to.eql('42.12');
+            });
+        });
+
+        it ('should work with boolean', function () {
+            expect(toml.dump(true)).to.eql('true');
+        });
+
+        it ('should work with date', function () {
+            var value = new Date(Date.UTC(1979, 5, 27, 7, 32, 0));
+            expect(toml.dump(value)).to.eql('1979-06-27T07:33:00Z');
+        });
+
+        it ('should work with array', function () {
+            var value = [1,2,3];
+            expect(toml.dump(value)).to.eql('[1, 2, 3]');
+        });
+
+        describe('when data is string', function () {
+            beforeEach(function () {
+               result = toml.dump("Hello,\t\"Toml\"\n");
+            });
+
+            it ('should escape', function () {
+                expect(result).to.eql("\"Hello,\\t\\\"Toml\\\"\\n\"");
+            });
+        });
+
+        it ('should work with hash', function () {
+            var value = {title: 'Toml', ports: [8080, 8081], info:{name: 'Jonh'}};
+            expect(toml.dump(value)).to.eql("title = \"Toml\"\nports = [8080, 8081]\n\n[info]\nname = \"Jonh\"\n\n");
+        });
+    });
 });
