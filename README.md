@@ -37,6 +37,12 @@ Run parser,
     });
 ```
 
+Run dumper,
+
+```js
+    var stringData = toml.dump({owner: {name: "Tom Preston-Werner", organization: "GitHub"}});
+```
+
 ## Running on node
 
 Install npm package
@@ -55,6 +61,13 @@ Run parser,
         var parsed = toml.parse(data);
         console.log(parsed);
     });
+```
+
+Run dumper,
+
+```js
+    var toml = require('toml-js');
+    var stringData = toml.dump({owner: {name: "Tom Preston-Werner", organization: "GitHub"}});
 ```
 
 ## Contributing
