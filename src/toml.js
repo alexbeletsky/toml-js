@@ -222,7 +222,7 @@ var toml = (function () {
     var isSimpleType = function(value){
         var type = typeof value;
         var strType = Object.prototype.toString.call(value);
-        return type == 'string' || type == 'number' || type == 'boolean' || strType == '[object Date]' || strType == '[object Array]';
+        return type === 'string' || type === 'number' || type === 'boolean' || strType === '[object Date]' || strType === '[object Array]';
     };
 
     var dumpObject = function(value, context) {
@@ -231,22 +231,25 @@ var toml = (function () {
         if(type === '[object Date]') {
             return value.toISOString();
         } else if(type === '[object Array]' ) {
-            if(value.length == 0){
+            if(value.length === 0) {
                 return null;
             }
-            var result = '[';
+            var bracket = '[';
             for (var index = 0; index < value.length; ++index) {
-               result += dump(value[index]) + ', ';
+               bracket += dump(value[index]) + ', ';
             }
-            return result.substring(0, result.length - 2) + ']';
+            return bracket.substring(0, bracket.length - 2) + ']';
         }
-        var result = '';
-        var simleProps = '';
-        for(var propertyName in value) {
+
+        var result = '', simleProps = '';
+        var propertyName;
+
+        for(propertyName in value) {
             if(isSimpleType(value[propertyName])){
                 simleProps += propertyName + ' = ' + dump(value[propertyName]) + '\n';
             }
         }
+
         if(simleProps){
             if(context.length > 0){
                var contextName = context.join('.');
@@ -254,11 +257,13 @@ var toml = (function () {
             }
             result += simleProps + '\n';
         }
-        for(var propertyName in value) {
+
+        for(propertyName in value) {
             if(!isSimpleType(value[propertyName])){
                 result += dump(value[propertyName], context.concat(propertyName));
             }
         }
+
         return result;
     };
 

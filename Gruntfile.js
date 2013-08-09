@@ -110,6 +110,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'mocha', 'rig', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'rig', 'concat', 'uglify']);
   grunt.registerTask('test', ['mocha']);
 };
