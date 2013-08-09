@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     meta: {
-      version: '0.0.5',
+      version: '0.0.8',
       source: 'toml.js',
       sourceMin: 'toml.min.js',
       banner: '// TOML parser implementation, v<%= meta.version %>\n' +
@@ -63,17 +63,32 @@ module.exports = function(grunt) {
 
     jshint: {
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: false,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true,
+        "asi" : false,
+        "bitwise" : true,
+        "boss" : false,
+        "curly" : true,
+        "debug": false,
+        "devel": false,
+        "eqeqeq": true,
+        "evil": true,
+        "expr": true,
+        "forin": false,
+        "immed": true,
+        "latedef" : false,
+        "laxbreak": false,
+        "multistr": true,
+        "newcap": true,
+        "noarg": true,
+        "node" : true,
+        "noempty": false,
+        "nonew": true,
+        "onevar": false,
+        "plusplus": false,
+        "regexp": false,
+        "strict": false,
+        "sub": false,
+        "trailing" : true,
+        "undef": true,
         globals: {
           jQuery: true,
           Backbone: true,
