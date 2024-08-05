@@ -13,6 +13,7 @@
     "browser"
   ],
   "lib": "./lib",
+  "types": "index.d.ts",
   "main": "./lib/amd/toml.js",
   "author": {
     "name": "Alexander Beletsky",
