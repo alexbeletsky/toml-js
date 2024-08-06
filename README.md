@@ -1,4 +1,4 @@
-# Toml-js [![Build Status](https://secure.travis-ci.org/alexanderbeletsky/toml-js.png?branch=master)](http://travis-ci.org/alexanderbeletsky/toml-js)
+# Toml-js ![Build Status](https://github.com/alexbeletsky/toml-js/actions/workflows/test.yml/badge.svg)
 
 Very slim, very fast, no dependencies, [TOML](https://github.com/mojombo/toml) parser implementation. Works both browser (plain and AMD) and node.js.
 
