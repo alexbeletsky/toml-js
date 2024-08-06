@@ -72,7 +72,7 @@ Run dumper,
 
 ## Contributing
 
-You are very welcome. Please fork, update [tests](/test/spec/toml.spec.js), apply fix, build and submit the pull request.
+You are very welcome. Please fork, update [tests](/test/toml.spec.js), apply fix, build and submit the pull request.
 
 ## Supported version
 

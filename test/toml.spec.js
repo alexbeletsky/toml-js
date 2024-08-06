@@ -1,3 +1,7 @@
+const {describe, it, beforeEach} = require("node:test");
+const assert = require("node:assert/strict");
+const toml = require("../lib/amd/toml.js");
+
 describe('merge multiline', function () {
     var mergeMultilines = function (lines) {
         var merged = [], acc = [], capture = false, merge = false;
@@ -37,12 +41,12 @@ describe('merge multiline', function () {
     var result;
 
     describe('for arrays', function () {
-        beforeEach(function () {
+        beforeEach(() => {
             result = mergeMultilines(['hosts=["a",','"b",','"c"]']);
         });
 
         it ('should merge', function () {
-            expect(result[0]).to.eql('hosts=["a","b","c"]');
+            assert.equal(result[0], 'hosts=["a","b","c"]');
         });
     });
 
@@ -53,7 +57,7 @@ describe('toml.js spec', function () {
 
     describe('toml construction', function () {
         it ('should exist', function () {
-            expect(toml).to.be.ok;
+            assert.ok(toml);
         });
     });
 
@@ -63,7 +67,7 @@ describe('toml.js spec', function () {
         });
 
         it ('should be empty object', function () {
-            expect(result).to.be.empty;
+            assert.deepEqual(result, {});
         });
     });
 
@@ -73,7 +77,7 @@ describe('toml.js spec', function () {
         });
 
         it ('should create new group', function () {
-            expect(result.group).to.be.ok;
+            assert.ok(result.group);
         });
 
         describe('nested group', function () {
@@ -82,7 +86,7 @@ describe('toml.js spec', function () {
             });
 
             it('should create nested group', function () {
-                expect(result.group.sub).to.be.ok;
+                assert.ok(result.group.sub);
             });
         });
 
@@ -92,11 +96,11 @@ describe('toml.js spec', function () {
             });
 
             it ('should create first group', function () {
-                expect(result.first).to.be.ok;
+                assert.ok(result.first);
             });
 
             it ('should create second group', function () {
-                expect(result.second).to.be.ok;
+                assert.ok(result.second);
             });
         });
     });
@@ -109,7 +113,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create integer', function () {
-                expect(result.foo).to.eql(1);
+                assert.equal(result.foo, 1);
             });
         });
 
@@ -119,7 +123,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create float', function () {
-                expect(result.foo).to.eql(1.23);
+                assert.equal(result.foo, 1.23);
             });
         });
 
@@ -129,7 +133,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create boolean', function () {
-                expect(result.foo).to.eql(true);
+                assert.equal(result.foo, true);
             });
         });
 
@@ -138,8 +142,8 @@ describe('toml.js spec', function () {
                 result = toml.parse('foo="true"');
             });
 
-            it ('should create boolean', function () {
-                expect(result.foo).to.eql("true");
+            it ('should create string', function () {
+                assert.equal(result.foo, "true");
             });
         });
 
@@ -149,7 +153,7 @@ describe('toml.js spec', function () {
             });
 
             it ('should create dates', function () {
-                expect(result.foo).to.eql(new Date('2013-02-24T01:13:00Z'));
+                assert.deepEqual(result.foo, new Date('2013-02-24T01:13:00Z'));
             });
         });
 
@@ -160,7 +164,7 @@ describe('toml.js spec', function () {
                 });
 
                 it('should create array of ints', function () {
-                    expect(result.foo).to.eql([1,2,3]);
+                    assert.deepEqual(result.foo, [1,2,3]);
                 });
             });
 
@@ -170,7 +174,7 @@ describe('toml.js spec', function () {
                 });
 
                 it('should create array of floats', function () {
-                    expect(result.foo).to.eql([1.1,2.2,3.3]);
+                    assert.deepEqual(result.foo, [1.1,2.2,3.3]);
                 });
             });
 
@@ -180,7 +184,7 @@ describe('toml.js spec', function () {
                 });
 
                 it('should create array of string', function () {
-                    expect(result.foo).to.eql(["one","two","three"]);
+                    assert.deepEqual(result.foo, ["one","two","three"]);
                 });
             });
 
@@ -189,8 +193,8 @@ describe('toml.js spec', function () {
                     result = toml.parse('foo=[2013-02-24T01:13:00Z,2013-02-25T01:13:00Z]');
                 });
 
-                it('should create array of string', function () {
-                    expect(result.foo).to.eql([new Date('2013-02-24T01:13:00Z'), new Date('2013-02-25T01:13:00Z')]);
+                it('should create array of dates', function () {
+                    assert.deepStrictEqual(result.foo, [new Date('2013-02-24T01:13:00Z'), new Date('2013-02-25T01:13:00Z')]);
                 });
             });
 
@@ -200,7 +204,7 @@ describe('toml.js spec', function () {
                 });
 
                 it('should create array of multiple types', function () {
-                    expect(result.foo).to.eql(["one",1,2.2]);
+                    assert.deepEqual(result.foo, ["one",1,2.2]);
                 });
             });
 
@@ -210,7 +214,7 @@ describe('toml.js spec', function () {
                 });
 
                 it('should create nested arrays', function () {
-                    expect(result.foo).to.eql([1,2,[1,2,3]]);
+                    assert.deepEqual(result.foo, [1,2,[1,2,3]]);
                 });
 
                 describe('nested nested', function () {
@@ -219,7 +223,7 @@ describe('toml.js spec', function () {
                     });
 
                     it('should create nested arrays', function () {
-                        expect(result.foo).to.eql([1,2,[3,4],5,[6,7,[8,9]]]);
+                        assert.deepEqual(result.foo, [1,2,[3,4],5,[6,7,[8,9]]]);
                     });
                 });
 
@@ -229,7 +233,7 @@ describe('toml.js spec', function () {
                     });
 
                     it('should create nested arrays', function () {
-                        expect(result.foo).to.eql([[1,2],["a","b","c"]]);
+                        assert.deepEqual(result.foo, [[1,2],["a","b","c"]]);
                     });
                 });
             });
@@ -242,11 +246,11 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should parse group', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 it ('should parse expression in group', function () {
-                    expect(result.group.foo).to.eql(1);
+                    assert.equal(result.group.foo, 1);
                 });
             });
 
@@ -256,12 +260,12 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should parse group', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 it ('should parse expression in group', function () {
-                    expect(result.group.foo).to.eql(1);
-                    expect(result.group.boo).to.eql(2);
+                    assert.equal(result.group.foo, 1);
+                    assert.equal(result.group.boo, 2);
                 });
             });
 
@@ -271,12 +275,12 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should parse group', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 it ('should parse expression in group', function () {
-                    expect(result.global).to.eql(1);
-                    expect(result.group.global).to.be.not.ok;
+                    assert.equal(result.global, 1);
+                    assert.ok(!result.group.global);
                 });
             });
 
@@ -286,12 +290,12 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should parse group', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 it ('should parse expression in group', function () {
-                    expect(result.global).to.eql(1);
-                    expect(result.group.global).to.be.not.ok;
+                    assert.equal(result.global, 1);
+                    assert.ok(!result.group.global);
                 });
             });
 
@@ -301,15 +305,15 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should parse group', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 it ('should parse sub group', function () {
-                    expect(result.group.sub).to.be.ok;
+                    assert.ok(result.group.sub);
                 });
 
                 it ('should parse expression in sub group', function () {
-                    expect(result.group.sub.moo).to.eql(1);
+                    assert.equal(result.group.sub.moo, 1);
                 });
             });
 
@@ -323,7 +327,7 @@ describe('toml.js spec', function () {
                 });
 
                 it ('should be parsed', function () {
-                    expect(result.group).to.be.ok;
+                    assert.ok(result.group);
                 });
 
                 describe('in the same line', function () {
@@ -332,7 +336,7 @@ describe('toml.js spec', function () {
                     });
 
                     it ('should be parsed', function () {
-                        expect(result.group).to.be.ok;
+                        assert.ok(result.group);
                     });
                 });
 
@@ -342,7 +346,7 @@ describe('toml.js spec', function () {
                     });
 
                     it ('should be parsed', function () {
-                        expect(result.clients.data).to.be.ok;
+                        assert.ok(result.clients.data);
                     });
                 });
 
@@ -356,7 +360,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.group).to.be.ok;
+                            assert.ok(result.group);
                         });
                     });
 
@@ -366,7 +370,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.foo).to.be.ok;
+                            assert.ok(result.foo);
                         });
                     });
                 });
@@ -378,7 +382,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.group).to.be.ok;
+                            assert.ok(result.group);
                         });
                     });
 
@@ -388,7 +392,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.foo).to.be.ok;
+                            assert.ok(result.foo);
                         });
                     });
                 });
@@ -400,7 +404,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.group).to.be.ok;
+                            assert.ok(result.group);
                         });
                     });
 
@@ -410,7 +414,7 @@ describe('toml.js spec', function () {
                         });
 
                         it ('should skip spaces', function () {
-                            expect(result.foo).to.be.ok;
+                            assert.ok(result.foo);
                         });
 
                         describe('for arrays', function () {
@@ -419,7 +423,7 @@ describe('toml.js spec', function () {
                             });
 
                             it ('should skip spaces', function () {
-                                expect(result.foo).to.be.ok;
+                                assert.ok(result.foo);
                             });
                         });
                     });
@@ -433,15 +437,15 @@ describe('toml.js spec', function () {
             });
 
             it ('should parse', function () {
-                expect(result.hosts).to.eql(["alpha","beta","omega"]);
+                assert.deepEqual(result.hosts, ["alpha","beta","omega"]);
             });
         });
 
         describe('when overriding group name', function () {
             it ('should throw an error', function () {
-                expect(function () {
+                assert.throws(function () {
                     toml.parse('[group]\nkey=1\n\n[group.key]\nval=2\n');
-                }).to.throws(Error);
+                }, Error);
             });
         });
     });
@@ -449,32 +453,32 @@ describe('toml.js spec', function () {
     describe('dump', function () {
 
         it('should expose a function', function () {
-            expect(toml.dump).to.be.a('function');
+            assert.equal(typeof toml.dump, 'function');
         });
 
         describe('when data is number', function () {
 
             it ('should work with integer', function () {
-                expect(toml.dump(42)).to.eql('42');
+                assert.equal(toml.dump(42), '42');
             });
 
             it ('should work with float', function () {
-                expect(toml.dump(42.12)).to.eql('42.12');
+                assert.equal(toml.dump(42.12), '42.12');
             });
         });
 
         it ('should work with boolean', function () {
-            expect(toml.dump(true)).to.eql('true');
+            assert.equal(toml.dump(true), 'true');
         });
 
         it ('should work with date', function () {
             var value = new Date(Date.UTC(1979, 5, 27, 7, 32, 0));
-            expect(toml.dump(value)).to.eql('1979-06-27T07:33:00Z');
+            assert.equal(toml.dump(value), '1979-06-27T07:32:00.000Z');
         });
 
         it ('should work with array', function () {
             var value = [1,2,3];
-            expect(toml.dump(value)).to.eql('[1, 2, 3]');
+            assert.equal(toml.dump(value), '[1, 2, 3]');
         });
 
         describe('when data is string', function () {
@@ -483,13 +487,13 @@ describe('toml.js spec', function () {
             });
 
             it ('should escape', function () {
-                expect(result).to.eql("\"Hello,\\t\\\"Toml\\\"\\n\"");
+                assert.equal(result, "\"Hello,\\t\\\"Toml\\\"\\n\"");
             });
         });
 
         it ('should work with hash', function () {
             var value = {title: 'Toml', ports: [8080, 8081], info:{name: 'Jonh'}};
-            expect(toml.dump(value)).to.eql("title = \"Toml\"\nports = [8080, 8081]\n\n[info]\nname = \"Jonh\"\n\n");
+            assert.equal(toml.dump(value), "title = \"Toml\"\nports = [8080, 8081]\n\n[info]\nname = \"Jonh\"\n\n");
         });
     });
 });

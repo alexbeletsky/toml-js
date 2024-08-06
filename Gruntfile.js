@@ -13,15 +13,6 @@ module.exports = function(grunt) {
         '// http://github.com/alexander.beletsky/toml.js\n'
     },
 
-    mocha: {
-      test: {
-        src: ['test/index.html'],
-        options: {
-          run: true
-        }
-      }
-    },
-
     rig: {
       standard: {
         src: ['src/<%= meta.source %>'],
@@ -89,14 +80,6 @@ module.exports = function(grunt) {
         "sub": false,
         "trailing" : true,
         "undef": true,
-        globals: {
-          jQuery: true,
-          Backbone: true,
-          _: true,
-          Marionette: true,
-          $: true,
-          slice: true
-        }
       },
       js: ['src/<%= meta.source %>']
     }
@@ -104,12 +87,10 @@ module.exports = function(grunt) {
 
   // Laoded tasks
   grunt.loadNpmTasks('grunt-rigger');
-  grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'rig', 'concat', 'uglify']);
-  grunt.registerTask('test', ['mocha']);
 };
