@@ -143,6 +143,29 @@ describe('toml.js spec', function () {
             });
         });
 
+        describe("for multiline strings", function () {
+            beforeEach(function () {
+                result = toml.parse(`foo="""
+Here is some *markdown* - it does not include the first line break, it may contain "quotes",
+whitespace      ,
+linebreaks, and as long as I don't put more than two ""
+double quotes in a row, it will parse correctly.
+"""
+`);
+            });
+
+            it("should create multiline string", function () {
+                assert.equal(
+                    result.foo,
+                    `Here is some *markdown* - it does not include the first line break, it may contain "quotes",
+whitespace      ,
+linebreaks, and as long as I don't put more than two ""
+double quotes in a row, it will parse correctly.
+`
+                );
+            });
+        });
+
         describe('for dates', function () {
             beforeEach(function () {
                 result = toml.parse('foo=2013-02-24T01:13:00Z');
