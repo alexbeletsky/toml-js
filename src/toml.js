@@ -147,13 +147,9 @@ var toml = (function () {
 
     var parse = function (context, lines) {
         mergeMultilines(lines).forEach(function (line) {
-            line = stripComments(replaceWhitespaces(line));
+            line = stripComments(line);
             parseLine(context, line);
         });
-
-        function replaceWhitespaces(line) {
-            return line.replace(/\s/g, '');
-        }
 
         function stripComments(line) {
             return line.split('#')[0];
